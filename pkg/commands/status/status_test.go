@@ -16,4 +16,31 @@
 *	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package commands
+package status
+
+import (
+	"testing"
+
+	"github.com/spf13/cobra"
+)
+
+func Test_exec(t *testing.T) {
+	type args struct {
+		cmd  *cobra.Command
+		args []string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := exec(tt.args.cmd, tt.args.args); (err != nil) != tt.wantErr {
+				t.Errorf("exec() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}

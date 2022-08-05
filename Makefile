@@ -14,3 +14,13 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+GO		=		$(shell which go)
+
+.PHONY: default
+default:
+	${GO} build -o bin/lctl -ldflags "-X 'main.Version=${VERSION}' -X 'main.Commit=${COMMIT}' -X 'main.BuildTime=${DATE}'" cmd/lctl/main.go
+
+.PHONY: test
+test:
+	${GO} test -v -cover -race ./...

@@ -16,21 +16,45 @@
 *	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package main
+package account
 
 import (
-	"fmt"
-
-	_ "github.com/fire833/lctl/pkg/commands/account"
-	_ "github.com/fire833/lctl/pkg/commands/card"
-	_ "github.com/fire833/lctl/pkg/commands/funding"
 	"github.com/fire833/lctl/pkg/commands/lctl"
-	_ "github.com/fire833/lctl/pkg/commands/status"
-	_ "github.com/fire833/lctl/pkg/commands/transaction"
+	"github.com/fire833/lctl/pkg/version"
+	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 )
 
-func main() {
-	if e := lctl.Cmd.Execute(); e != nil {
-		fmt.Printf("%v", e)
+type cmdOpts struct{}
+
+var (
+	cmdVersion *version.Version = version.NewVersion("account", "Interact with accounts in the Lithic API.",
+		"0.0.1", "Kendall Tauser", "kttpsy@gmail.com")
+
+	cmd *cobra.Command = &cobra.Command{
+		Use:        cmdVersion.GetTool(),
+		Short:      cmdVersion.GetUse(),
+		Version:    cmdVersion.GetVersion(),
+		Aliases:    []string{"a", "acct", "user"},
+		SuggestFor: []string{},
+		Long: `
+   `,
+		RunE: exec,
 	}
+
+	opts *cmdOpts
+)
+
+func exec(cmd *cobra.Command, args []string) error {
+	return nil
+}
+
+func init() {
+	set := pflag.NewFlagSet(cmdVersion.GetTool(), pflag.ExitOnError)
+
+	o := &cmdOpts{}
+
+	cmd.Flags().AddFlagSet(set)
+	lctl.Cmd.AddCommand(cmd)
+	opts = o
 }

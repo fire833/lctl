@@ -16,21 +16,15 @@
 *	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package main
+package pkg
 
-import (
-	"fmt"
+import "runtime"
 
-	_ "github.com/fire833/lctl/pkg/commands/account"
-	_ "github.com/fire833/lctl/pkg/commands/card"
-	_ "github.com/fire833/lctl/pkg/commands/funding"
-	"github.com/fire833/lctl/pkg/commands/lctl"
-	_ "github.com/fire833/lctl/pkg/commands/status"
-	_ "github.com/fire833/lctl/pkg/commands/transaction"
+var (
+	Version   string = "unknown"
+	Commit    string = "unknown"
+	BuildTime string = "unknown"
+	Go        string = runtime.Version()
+	Os        string = runtime.GOOS
+	Arch      string = runtime.GOARCH
 )
-
-func main() {
-	if e := lctl.Cmd.Execute(); e != nil {
-		fmt.Printf("%v", e)
-	}
-}

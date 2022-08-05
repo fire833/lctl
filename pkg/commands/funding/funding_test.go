@@ -16,21 +16,31 @@
 *	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package main
+package funding
 
 import (
-	"fmt"
+	"testing"
 
-	_ "github.com/fire833/lctl/pkg/commands/account"
-	_ "github.com/fire833/lctl/pkg/commands/card"
-	_ "github.com/fire833/lctl/pkg/commands/funding"
-	"github.com/fire833/lctl/pkg/commands/lctl"
-	_ "github.com/fire833/lctl/pkg/commands/status"
-	_ "github.com/fire833/lctl/pkg/commands/transaction"
+	"github.com/spf13/cobra"
 )
 
-func main() {
-	if e := lctl.Cmd.Execute(); e != nil {
-		fmt.Printf("%v", e)
+func Test_exec(t *testing.T) {
+	type args struct {
+		cmd  *cobra.Command
+		args []string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := exec(tt.args.cmd, tt.args.args); (err != nil) != tt.wantErr {
+				t.Errorf("exec() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
 	}
 }
