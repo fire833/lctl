@@ -15,19 +15,22 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-GO		=		$(shell which go)
+version: 2
+updates:
 
-.PHONY: default
-default:
-	${GO} build -o bin/lctl -ldflags "-X 'main.Version=${VERSION}' -X 'main.Commit=${COMMIT}' -X 'main.BuildTime=${DATE}'" cmd/lctl/main.go
+- package-ecosystem: gomod
+  directory: /
+  schedule:
+    interval: weekly
+  assignees:
+  - fire833
+  target-branch: main
 
-.PHONY: test
-test:
-	${GO} test -v -cover -race ./...
-
-.PHONY: gendoc
-gendoc:
-	${GO} run cmd/gendoc/main.go
-
-.PHONY:codegen
-codegen: gendoc
+- package-ecosystem: github-actions
+  directory: /
+  schedule:
+    interval: daily
+  assignees:
+  - fire833
+  target-branch: main
+  
